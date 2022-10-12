@@ -4,6 +4,7 @@ import Clock from './comment/Clock';
 import Footer from './comment/Footer';
 import useSocket from './context/socket';
 import Personalinfo from './personnalinfo';
+import Section from './section';
 function App() {
   return (
     <div className="grid grid-flow-6 h-screen">
@@ -19,7 +20,8 @@ function App() {
       </div>
       <div className="bg-black row-span-4 items-center text-center">
         {/* <div className="p-6 max-w-sm mx-auto bg-white rounded-xl shadow-lg  items-center space-x-4"> */}
-        <Personalinfo></Personalinfo>
+        {/* <Personalinfo></Personalinfo> */}
+        <Section></Section>
         {/* <table>
             <tbody>
               <tr><td>MAC:</td><td>{macAddress}</td></tr>
