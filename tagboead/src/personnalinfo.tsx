@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import useSocket from './context/socket';
 import Clock from './comment/Clock';
 import { time } from 'console';
-import Section from "./section"
 interface SignIn {
     SN: string | null,
     section: string | null,
