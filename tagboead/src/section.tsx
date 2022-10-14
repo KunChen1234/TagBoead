@@ -1,26 +1,34 @@
 import { useEffect, useState } from 'react';
 import useSocket from './context/socket';
+import './section.css';
 import Personalinfo from './personnalinfo';
 function Section() {
     const socket = useSocket();
     const a = [{
-        color: "roobuck-blue", section: "maintanence",
+        color: "#ff0000", section: "maintanence",
+    },
+    {
+        color: "#0000ff", section: "Transfer"
     }, {
-        color: "roobuck-blue", section: "transfer"
+        color: "#008000", section: "Manager"
     }, {
-        color: "roobuck-blue", section: "manager"
-    }]
+        color: "#800080", section: "Manager"
+    }, {
+        color: "#ffd700", section: "Manager"
+    }
+    ]
     if (a) {
         return (
             <div>
                 {Array.from(a).map(entry => {
                     return (
-                        <div>
-                            <div><p>{entry.section}</p>
-                            </div>
-                            <div key={entry.section} className="max-w-sm max-h-sm  bg-white shadow-lg grid grid-flow-2">
-                                <p>aa</p>
-                                {/* <Personalinfo></Personalinfo> */}
+                        <div className='pt-4'>
+                             {/* border: `5px solid red`, */}
+                            <div key={entry.section} className="board clo-flow-1 min-h-[200px] shadow-lg p-2" style={{ background: entry.color }}>
+                                <p className='flex bg-white w-fit'>{entry.section}</p>
+                                <div className='pt-2'>
+                                    <Personalinfo section={entry.section} ></Personalinfo>
+                                </div>
                             </div>
                         </div>
                     )

@@ -5,7 +5,8 @@ module.exports = {
     extend: {
       colors: {
 				"roobuck-blue": "#18519c",
-				"roobuck-onyx": "#3d3e3d"
+				"roobuck-onyx": "#3d3e3d",
+        "tag-back": "#808080"
 			}
     },
   },
