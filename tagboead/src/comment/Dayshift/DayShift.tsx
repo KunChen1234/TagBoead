@@ -7,7 +7,7 @@ function DayShift() {
         <div className=' bg-black text-center'>
             <p className='text-white text-section_title'>DayShfit</p>
             <div className="row-span-1 bg-black  text-center gap-[2px] pb-4" style={{ overflowY: 'auto', height: body_height }}>
-                <Section></Section>
+                <Section shiftTime='DayShift'></Section>
             </div>
         </div>);
 }

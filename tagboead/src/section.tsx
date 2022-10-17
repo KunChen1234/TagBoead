@@ -2,7 +2,11 @@ import { useEffect, useState } from 'react';
 import useSocket from './context/socket';
 import './section.css';
 import Personalinfo from './personnalinfo';
-function Section() {
+interface Prop
+{
+    shiftTime:string;
+}
+function Section(prop:Prop) {
     const socket = useSocket();
     const a = [{
         color: "white", section: "maintanence",
@@ -27,7 +31,7 @@ function Section() {
                             <div key={entry.section} className="board clo-flow-1 min-h-[200px] shadow-lg p-2" style={{ background: entry.color }}>
                                 <p className='flex bg-white w-fit'>{entry.section}</p>
                                 <div className='pt-2'>
-                                    <Personalinfo section={entry.section} ></Personalinfo>
+                                    <Personalinfo section={entry.section} shiftTime={prop.shiftTime}></Personalinfo>
                                 </div>
                             </div>
                         </div>
