@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import useSocket from './context/socket';
-import Clock from './comment/Clock';
+import Clock from './comment/Header/Clock';
 import { time } from 'console';
 import miner from './image/miner.png';
 interface Props {

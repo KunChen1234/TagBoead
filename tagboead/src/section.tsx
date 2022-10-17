@@ -5,7 +5,7 @@ import Personalinfo from './personnalinfo';
 function Section() {
     const socket = useSocket();
     const a = [{
-        color: "#ff0000", section: "maintanence",
+        color: "white", section: "maintanence",
     },
     {
         color: "#0000ff", section: "Transfer"

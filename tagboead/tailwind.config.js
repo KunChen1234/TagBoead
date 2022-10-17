@@ -7,7 +7,11 @@ module.exports = {
 				"roobuck-blue": "#18519c",
 				"roobuck-onyx": "#3d3e3d",
         "tag-back": "#808080"
-			}
+			},
+      fontSize:
+      {
+        "section_title":"80pt"
+      }
     },
   },
   plugins: [],
