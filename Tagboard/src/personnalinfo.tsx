@@ -134,7 +134,6 @@ function Personalinfo(props: Props) {
     useEffect(() => {
         socket.on("DayShift", (msg) => {
             setDayShift(msg);
-
             localStorage.setItem("DayShift", JSON.stringify(msg));
             const a = JSON.stringify(msg);
             console.log("a" + JSON.parse(a).toString())
