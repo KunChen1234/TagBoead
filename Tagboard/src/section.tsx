@@ -2,11 +2,10 @@ import { useEffect, useState } from 'react';
 import useSocket from './context/socket';
 import './section.css';
 import Personalinfo from './personnalinfo';
-interface Prop
-{
-    shiftTime:string;
+interface Prop {
+    shiftTime: string;
 }
-function Section(prop:Prop) {
+function Section(prop: Prop) {
     const socket = useSocket();
     const a = [{
         color: "white", section: "maintanence",
@@ -27,7 +26,7 @@ function Section(prop:Prop) {
                 {Array.from(a).map(entry => {
                     return (
                         <div className='pt-4'>
-                             {/* border: `5px solid red`, */}
+                            {/* border: `5px solid red`, */}
                             <div key={entry.section} className="board clo-flow-1 min-h-[200px] shadow-lg p-2" style={{ background: entry.color }}>
                                 <p className='flex bg-white w-fit'>{entry.section}</p>
                                 <div className='pt-2'>

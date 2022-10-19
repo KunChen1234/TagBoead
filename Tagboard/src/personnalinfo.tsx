@@ -168,7 +168,7 @@ function Personalinfo(props: Props) {
                     if (entry.section === props.section) {
                         return (<div key={entry.SN} className="min-w-[120px] max-w-sm max-h-sm bg-tag-back shadow-lg grid grid-flow-2">
                             <div className="clo-flow-1">
-                                <img className="inline-block h-20 w-20 rounded-full ring-2 ring-black" src={require("./image/" + entry.photo)} alt={miner}></img>
+                                <img className="inline-block h-20 w-20 rounded-full ring-2 ring-black" src={require("./image/persontest.jpg")} alt={miner}></img>
                             </div>
                             <div className="clo-flow-1">
                                 <p>SN: {entry.SN}</p>

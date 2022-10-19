@@ -1,14 +1,15 @@
 import Section from '../../section';
 import useWindowDimensions from '../hooks/windowDimensions';
-function DayShift() {
+
+function NightShift() {
     const window = useWindowDimensions();
     const body_height = window.height - 100 - 35;
     return (
         <div className=' bg-black text-center'>
-            <p className='text-white text-section_title'>DayShfit</p>
+            <p className='text-white text-section_title'>DayShift</p>
             <div className="row-span-1 bg-black  text-center gap-[2px] pb-4" style={{ overflowY: 'auto', height: body_height }}>
                 <Section shiftTime='DayShift'></Section>
             </div>
         </div>);
 }
-export default DayShift;
+export default NightShift;
