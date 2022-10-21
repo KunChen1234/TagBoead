@@ -56,8 +56,6 @@ function Personalinfo(props: Props) {
             console.log("a" + JSON.parse(a).toString().person.ID)
         });
         socket.on("NightShift", (msg) => {
-            console.log("nightSHift get data from server");
-            console.log(msg.person.ID)
             setNightShift(msg);
             sessionStorage.setItem("NightShift", JSON.stringify(msg));
             const a = JSON.stringify(msg);
@@ -70,6 +68,9 @@ function Personalinfo(props: Props) {
     }, [DayShift, NightShift]);
     // console.log("ID: " + IDInfo, "Lamp: " + LampInfo, "photo:" + photoSrc)
 
+    console.log(props.shiftTime === "NightShift")
+    console.log(NightShift)
+
     if (props.shiftTime === "DayShift" && DayShift) {
         console.log("detail= dayshift")
         detail = DayShift;
@@ -77,6 +78,10 @@ function Personalinfo(props: Props) {
         console.log("detail= nightshift")
         detail = NightShift;
     }
+    // if(!detail)
+    // {
+    //     console.log("get data failed")
+    // }
     if (detail) {
         return (
             <div className="grid grid-cols-9 gap-5 gap-y-5">
