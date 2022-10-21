@@ -5,178 +5,100 @@ interface Props {
     section: string;
     shiftTime: string;
 }
-interface SignIn {
-    SN: string | null,
-    section: string | null,
-    name: string | null,
-    photo: string | null | undefined,
-    job: string | null,
-    time: Date
+interface PeopleInfoTag {
+    ID: string | undefined | null;
+    section: string | undefined | null;
+    name: string | undefined | null;
+    photo: string | undefined | null;
+    job: string | undefined | null;
+    date: string | undefined | null;
+    time: string | undefined | null;
+    isDayShift: boolean | undefined | null;
 }
-interface RoobuckTag {
-    MAC: string;
-    SN: string;
+interface LampInfo {
+    MAC: string | undefined | null;
+    SN: string | undefined | null;
+    Bssid: string | undefined | null;
+    ChargingStatus: boolean | undefined | null;
+}
+interface TagBoardInfo {
+    person: PeopleInfoTag;
+    lamp: LampInfo;
 }
 function Personalinfo(props: Props) {
-    let detail: SignIn[] = [];
+    let detail: TagBoardInfo[] = [];
     const socket = useSocket();
-    const [DayShift, setDayShift] = useState<SignIn[]>(() => {
-        const user = localStorage.getItem("DayShift");
+    const [DayShift, setDayShift] = useState<TagBoardInfo[]>(() => {
+        const user = sessionStorage.getItem("DayShift");
         if (user) {
             return JSON.parse(user)
         } else {
             return null;
         }
     });
-    const [NightShift, setNightShift] = useState<SignIn[]>(() => {
-        const user = localStorage.getItem("NightShift");
+    const [NightShift, setNightShift] = useState<TagBoardInfo[]>(() => {
+        const user = sessionStorage.getItem("NightShift");
         if (user) {
             return JSON.parse(user)
         } else {
             return null;
         }
     });
-    const [LampInfo, setLampInfo] = useState<RoobuckTag>();
-    // const a = [{
-    //     id: 1,
-    //     SN: "C0409W-4C7525BC7020",
-    //     section: "maintanence",
-    //     name: 'ken',
-    //     photo: 'persontest.jpg',
-    //     job: 'job1',
-    //     time: '1'
-    // }
-    //     , {
-    //     id: 1,
-    //     SN: "C0409W-4C7525BC7020",
-    //     section: "maintanence",
-    //     name: 'ken',
-    //     photo: 'persontest.jpg',
-    //     job: 'job1',
-    //     time: '1'
-    // }, {
-    //     id: 1,
-    //     SN: "C0409W-4C7525BC7020",
-    //     section: "maintanence",
-    //     name: 'ken',
-    //     photo: 'persontest.jpg',
-    //     job: 'job1',
-    //     time: '1'
-    // }, {
-    //     id: 1,
-    //     SN: "C0409W-4C7525BC7020",
-    //     section: "maintanence",
-    //     name: 'ken',
-    //     photo: 'persontest.jpg',
-    //     job: 'job1',
-    //     time: '1'
-    // }, {
-    //     id: 1,
-    //     SN: "C0409W-4C7525BC7020",
-    //     section: "maintanence",
-    //     name: 'ken',
-    //     photo: 'persontest.jpg',
-    //     job: 'job1',
-    //     time: '1'
-    // }, {
-    //     id: 1,
-    //     SN: "C0409W-4C7525BC7020",
-    //     section: "maintanence",
-    //     name: 'ken',
-    //     photo: 'persontest.jpg',
-    //     job: 'job1',
-    //     time: '1'
-    // }, {
-    //     id: 1,
-    //     SN: "C0409W-4C7525BC7020",
-    //     section: "maintanence",
-    //     name: 'ken',
-    //     photo: 'persontest.jpg',
-    //     job: 'job1',
-    //     time: '1'
-    // }, {
-    //     id: 1,
-    //     SN: "C0409W-4C7525BC7020",
-    //     section: "maintanence",
-    //     name: 'ken',
-    //     photo: 'persontest.jpg',
-    //     job: 'job1',
-    //     time: '1'
-    // }, {
-    //     id: 1,
-    //     SN: "C0409W-4C7525BC7020",
-    //     section: "maintanence",
-    //     name: 'ken',
-    //     photo: 'persontest.jpg',
-    //     job: 'job1',
-    //     time: '1'
-    // },
-    // {
-    //     id: 1,
-    //     SN: "C0409W-4C7525BC7020",
-    //     section: "Transfer",
-    //     name: 'ken',
-    //     photo: 'persontest.jpg',
-    //     job: 'job1',
-    //     time: '1'
-    // },
-    // {
-    //     id: 1,
-    //     SN: "C0409W-4C7525BC7020",
-    //     section: "maintanence",
-    //     name: 'ken',
-    //     photo: 'persontest.jpg',
-    //     job: 'job1',
-    //     time: '1'
-    // }]
     const [photoSrc, setphotoSrc] = useState<string>();
 
     useEffect(() => {
         socket.on("DayShift", (msg) => {
+            console.log("dayshift get data from server");
             setDayShift(msg);
-            localStorage.setItem("DayShift", JSON.stringify(msg));
+            console.log(msg.person.ID);
+            sessionStorage.setItem("DayShift", JSON.stringify(msg));
             const a = JSON.stringify(msg);
-            console.log("a" + JSON.parse(a).toString())
+            console.log("a" + JSON.parse(a).toString().person.ID)
         });
         socket.on("NightShift", (msg) => {
+            console.log("nightSHift get data from server");
+            console.log(msg.person.ID)
             setNightShift(msg);
-            localStorage.setItem("NightShift", JSON.stringify(msg));
+            sessionStorage.setItem("NightShift", JSON.stringify(msg));
             const a = JSON.stringify(msg);
             console.log("a" + JSON.parse(a).toString())
         });
-        socket.on("LampInfo", (msg) => {
-            setLampInfo(msg);
-        })
         return function socketCleanup() {
             socket.removeAllListeners("DayShift");
             socket.removeAllListeners("NightShift");
-            socket.removeAllListeners("LampInfo");
         };
     }, [DayShift, NightShift]);
     // console.log("ID: " + IDInfo, "Lamp: " + LampInfo, "photo:" + photoSrc)
 
     if (props.shiftTime === "DayShift" && DayShift) {
+        console.log("detail= dayshift")
         detail = DayShift;
     } else if (props.shiftTime === "NightShift" && NightShift) {
+        console.log("detail= nightshift")
         detail = NightShift;
     }
-
     if (detail) {
         return (
             <div className="grid grid-cols-9 gap-5 gap-y-5">
                 {Array.from(detail).map(entry => {
-                    if (entry.section === props.section) {
-                        return (<div key={entry.SN} className="min-w-[120px] max-w-sm max-h-sm bg-tag-back shadow-lg grid grid-flow-2">
+                    const person = entry.person;
+                    const lamp = entry.lamp;
+                    if (person.section === props.section) {
+                        return (<div key={person.ID} className="min-w-[120px] max-w-sm max-h-sm bg-tag-back shadow-lg grid grid-flow-2">
                             <div className="clo-flow-1">
                                 <img className="inline-block h-20 w-20 rounded-full ring-2 ring-black" src={require("./image/persontest.jpg")} alt={miner}></img>
                             </div>
                             <div className="clo-flow-1">
-                                <p>SN: {entry.SN}</p>
-                                <p>Name: {entry.name}</p>
-                                <p>Job: {entry.job}</p>
-                                <p>Section: {entry.section}</p>
-                                <p>Time: {entry.time.toString()}</p>
-                                {/* <p>LampSN: {LampInfo.SN}</p> */}
+                                <p>SN: {person.ID}</p>
+                                <p>Name: {person.name}</p>
+                                <p>Job: {person.job}</p>
+                                <p>Section: {person.section}</p>
+                                <p>Time: {person.date + " " + person.time}</p>
+                                <p>Lamp Information</p>
+                                <p>LampSN: {lamp.SN}</p>
+                                <p>LampMAC: {lamp.MAC}</p>
+                                <p>LampBssid: {lamp.Bssid}</p>
+                                <p>ChargingStatus: {lamp.ChargingStatus}</p>
                             </div>
                         </div>)
                     }
