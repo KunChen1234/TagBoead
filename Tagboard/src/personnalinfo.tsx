@@ -48,34 +48,42 @@ function Personalinfo(props: Props) {
 
     useEffect(() => {
         socket.on("DayShift", (msg) => {
-            console.log("dayshift get data from server");
+            // console.log("dayshift get data from server");
             setDayShift(msg);
-            console.log(msg.person.ID);
+            // console.log(msg.person.ID);
             sessionStorage.setItem("DayShift", JSON.stringify(msg));
-            const a = JSON.stringify(msg);
-            console.log("a" + JSON.parse(a).toString().person.ID)
         });
         socket.on("NightShift", (msg) => {
             setNightShift(msg);
             sessionStorage.setItem("NightShift", JSON.stringify(msg));
-            const a = JSON.stringify(msg);
-            console.log("a" + JSON.parse(a).toString())
+        });
+        socket.on("UpdateDayShift", (msg) => {
+            setDayShift(msg);
+
+            sessionStorage.setItem("DayShift", JSON.stringify(msg));
+        });
+        socket.on("UpdateNightShift", (msg) => {
+            setNightShift(msg);
+            console.log("Updated: " + msg[0].lamp.ChargingStatus);
+            sessionStorage.setItem("NightShift", JSON.stringify(msg));
         });
         return function socketCleanup() {
             socket.removeAllListeners("DayShift");
             socket.removeAllListeners("NightShift");
+            socket.removeAllListeners("UpdateDayShift");
+            socket.removeAllListeners("UpdateNightShift");
         };
     }, [DayShift, NightShift]);
     // console.log("ID: " + IDInfo, "Lamp: " + LampInfo, "photo:" + photoSrc)
 
-    console.log(props.shiftTime === "NightShift")
-    console.log(NightShift)
+    // console.log(props.shiftTime === "NightShift")
+    // console.log(NightShift)
 
     if (props.shiftTime === "DayShift" && DayShift) {
-        console.log("detail= dayshift")
+        // console.log("detail= dayshift")
         detail = DayShift;
     } else if (props.shiftTime === "NightShift" && NightShift) {
-        console.log("detail= nightshift")
+        // console.log("detail= nightshift")
         detail = NightShift;
     }
     // if(!detail)
@@ -98,12 +106,12 @@ function Personalinfo(props: Props) {
                                 <p>Name: {person.name}</p>
                                 <p>Job: {person.job}</p>
                                 <p>Section: {person.section}</p>
-                                <p>Time: {person.date + " " + person.time}</p>
+                                <p>Time: {person.date}</p>
                                 <p>Lamp Information</p>
                                 <p>LampSN: {lamp.SN}</p>
                                 <p>LampMAC: {lamp.MAC}</p>
                                 <p>LampBssid: {lamp.Bssid}</p>
-                                <p>ChargingStatus: {lamp.ChargingStatus}</p>
+                                <p>ChargingStatus: {lamp.ChargingStatus?.toString()}</p>
                             </div>
                         </div>)
                     }

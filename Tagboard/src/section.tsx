@@ -6,18 +6,27 @@ interface Prop {
     shiftTime: string;
 }
 function Section(prop: Prop) {
+    useEffect(() => {
+        const timerID = setInterval(() => {
+            socket.emit("UpdateShift");
+        }, 1000);
+        return function socketCleanup() {
+            clearInterval(timerID);
+        };
+    });
+
     const socket = useSocket();
     const a = [{
         color: "white", section: "maintanence",
     },
     {
-        color: "#0000ff", section: "Transfer"
+        color: "#0000ff", section: "manager"
     }, {
-        color: "#008000", section: "Manager"
+        color: "#008000", section: "transfer"
     }, {
-        color: "#800080", section: "Manager"
+        color: "#800080", section: "section4"
     }, {
-        color: "#ffd700", section: "Manager"
+        color: "#ffd700", section: "section5"
     }
     ]
     if (a) {
