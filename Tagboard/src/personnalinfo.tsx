@@ -46,25 +46,31 @@ function Personalinfo(props: Props) {
     });
     const [photoSrc, setphotoSrc] = useState<string>();
 
+    const [test, setTest] = useState()
     useEffect(() => {
+        socket.on("test", (msg) => {
+            console.log(msg)
+            setTest(msg)
+        })
         socket.on("DayShift", (msg) => {
             // console.log("dayshift get data from server");
             setDayShift(msg);
-            // console.log(msg.person.ID);
+            console.log(msg.person.ID);
             sessionStorage.setItem("DayShift", JSON.stringify(msg));
         });
         socket.on("NightShift", (msg) => {
             setNightShift(msg);
+            console.log("a");
             sessionStorage.setItem("NightShift", JSON.stringify(msg));
         });
+
         socket.on("UpdateDayShift", (msg) => {
             setDayShift(msg);
-
             sessionStorage.setItem("DayShift", JSON.stringify(msg));
         });
         socket.on("UpdateNightShift", (msg) => {
             setNightShift(msg);
-            console.log("Updated: " + msg[0].lamp.ChargingStatus);
+           console.log("uodate Nigh shift")
             sessionStorage.setItem("NightShift", JSON.stringify(msg));
         });
         return function socketCleanup() {
