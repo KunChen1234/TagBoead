@@ -19,6 +19,7 @@ interface LampInfo {
     MAC: string | undefined | null;
     SN: string | undefined | null;
     Bssid: string | undefined | null;
+    updateTime: string | undefined;
     ChargingStatus: boolean | undefined | null;
 }
 interface TagBoardInfo {
@@ -46,33 +47,30 @@ function Personalinfo(props: Props) {
     });
     const [photoSrc, setphotoSrc] = useState<string>();
 
-    const [test, setTest] = useState()
     useEffect(() => {
-        socket.on("test", (msg) => {
-            console.log(msg)
-            setTest(msg)
-        })
         socket.on("DayShift", (msg) => {
             // console.log("dayshift get data from server");
             setDayShift(msg);
-            console.log(msg.person.ID);
             sessionStorage.setItem("DayShift", JSON.stringify(msg));
         });
         socket.on("NightShift", (msg) => {
             setNightShift(msg);
-            console.log("a");
             sessionStorage.setItem("NightShift", JSON.stringify(msg));
         });
 
         socket.on("UpdateDayShift", (msg) => {
             setDayShift(msg);
+            console.log("updated" + msg.length)
             sessionStorage.setItem("DayShift", JSON.stringify(msg));
         });
         socket.on("UpdateNightShift", (msg) => {
             setNightShift(msg);
-           console.log("uodate Nigh shift")
+            console.log("uodate Nigh shift")
             sessionStorage.setItem("NightShift", JSON.stringify(msg));
         });
+        socket.on("UpdateTime", (msg) => {
+
+        })
         return function socketCleanup() {
             socket.removeAllListeners("DayShift");
             socket.removeAllListeners("NightShift");
@@ -108,7 +106,7 @@ function Personalinfo(props: Props) {
                                 <img className="inline-block h-20 w-20 rounded-full ring-2 ring-black" src={require("./image/persontest.jpg")} alt={miner}></img>
                             </div>
                             <div className="clo-flow-1">
-                                <p>SN: {person.ID}</p>
+                                <p>ID: {person.ID}</p>
                                 <p>Name: {person.name}</p>
                                 <p>Job: {person.job}</p>
                                 <p>Section: {person.section}</p>
@@ -117,6 +115,8 @@ function Personalinfo(props: Props) {
                                 <p>LampSN: {lamp.SN}</p>
                                 <p>LampMAC: {lamp.MAC}</p>
                                 <p>LampBssid: {lamp.Bssid}</p>
+                                <p>Update time:</p>
+                                <p>{lamp.updateTime}</p>
                                 <p>ChargingStatus: {lamp.ChargingStatus?.toString()}</p>
                             </div>
                         </div>)
