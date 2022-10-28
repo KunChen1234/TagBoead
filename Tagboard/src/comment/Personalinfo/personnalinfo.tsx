@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import useSocket from './context/socket';
-import miner from './image/miner.png';
+import useSocket from '../../context/socket';
+import miner from '../../image/miner.png';
 interface Props {
     section: string;
     shiftTime: string;
@@ -103,7 +103,7 @@ function Personalinfo(props: Props) {
                     if (person.section === props.section) {
                         return (<div key={person.ID} className="min-w-[120px] max-w-sm max-h-sm bg-tag-back shadow-lg grid grid-flow-2">
                             <div className="clo-flow-1">
-                                <img className="inline-block h-20 w-20 rounded-full ring-2 ring-black" src={require("./image/persontest.jpg")} alt={miner}></img>
+                                <img className="inline-block h-20 w-20 rounded-full ring-2 ring-black" src={require("../../image/persontest.jpg")} alt={miner}></img>
                             </div>
                             <div className="clo-flow-1">
                                 <p>ID: {person.ID}</p>

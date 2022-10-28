@@ -1,4 +1,3 @@
-import Section from '../../section';
 import useWindowDimensions from '../hooks/windowDimensions';
 import AddDepartment from './AddDepartment';
 function Configuration() {

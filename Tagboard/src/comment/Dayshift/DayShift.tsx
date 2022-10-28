@@ -1,4 +1,4 @@
-import Section from '../../section';
+import Section from '../Section/section';
 import useWindowDimensions from '../hooks/windowDimensions';
 
 function NightShift() {
