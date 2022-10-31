@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { DetailedHTMLFactory, useEffect, useState } from 'react';
 import useSocket from '../../context/socket';
 import miner from '../../image/miner.png';
 interface Props {
@@ -45,6 +45,7 @@ function Personalinfo(props: Props) {
             return null;
         }
     });
+    const [detailVisible,setIsDetailVisible]=useState<boolean[]>([false])
     const [photoSrc, setphotoSrc] = useState<string>();
 
     useEffect(() => {
@@ -82,7 +83,6 @@ function Personalinfo(props: Props) {
 
     // console.log(props.shiftTime === "NightShift")
     // console.log(NightShift)
-
     if (props.shiftTime === "DayShift" && DayShift) {
         // console.log("detail= dayshift")
         detail = DayShift;
@@ -93,15 +93,28 @@ function Personalinfo(props: Props) {
     // if(!detail)
     // {
     //     console.log("get data failed")
-    // }
+    // }    
     if (detail) {
         return (
             <div className="grid grid-cols-9 gap-5 gap-y-5">
-                {Array.from(detail).map(entry => {
+                {Array.from(detail).map((entry, num) => {
+                    //  const [isDetailVisible, setIsDetailVisible] = useState(false);
+                    //  function showDetail() {
+                    //      setIsDetailVisible(true);
+                    //  }
+                    //  function hideDetail() {
+                    //      setIsDetailVisible(false);
+                    //  }
                     const person = entry.person;
                     const lamp = entry.lamp;
+                    let isvisible=false;
                     if (person.section === props.section) {
-                        return (<div key={person.ID} className="min-w-[120px] max-w-sm max-h-sm bg-tag-back shadow-lg grid grid-flow-2">
+                        return (<div key={person.ID} className="min-w-fit max-w-sm  bg-tag-back shadow-lg grid grid-flow-2 h-fit" onMouseEnter={() => { 
+                            isvisible=true;
+                       }} onMouseLeave={() => {  if(detailVisible)
+                        {
+                            isvisible=false;
+                        } }}>
                             <div className="clo-flow-1">
                                 <img className="inline-block h-20 w-20 rounded-full ring-2 ring-black" src={require("../../image/persontest.jpg")} alt={miner}></img>
                             </div>
@@ -109,20 +122,23 @@ function Personalinfo(props: Props) {
                                 <p>ID: {person.ID}</p>
                                 <p>Name: {person.name}</p>
                                 <p>Job: {person.job}</p>
-                                <p>Section: {person.section}</p>
-                                <p>Time: {person.date}</p>
-                                <p>Lamp Information</p>
-                                <p>LampSN: {lamp.SN}</p>
-                                <p>LampMAC: {lamp.MAC}</p>
-                                <p>LampBssid: {lamp.Bssid}</p>
-                                <p>Update time:</p>
-                                <p>{lamp.updateTime}</p>
-                                <p>ChargingStatus: {lamp.ChargingStatus?.toString()}</p>
+                                <div className={`${isvisible ? "visible" : "hidden"} `}>
+                                    <p>Section: {person.section}</p>
+                                    <p>Time: {person.date}</p>
+                                    <p>Lamp Information</p>
+                                    <p>LampSN: {lamp.SN}</p>
+                                    <p>LampMAC: {lamp.MAC}</p>
+                                    <p>LampBssid: {lamp.Bssid}</p>
+                                    <p>Update time:</p>
+                                    <p>{lamp.updateTime}</p>
+                                    <p>ChargingStatus: {lamp.ChargingStatus?.toString()}</p>
+                                </div>
+
                             </div>
                         </div>)
                     }
                 })}
-            </div>
+            </div >
         );
     }
     else {

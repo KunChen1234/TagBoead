@@ -19,7 +19,6 @@ function App(): JSX.Element {
 		<BrowserRouter >
 			<Header showHideNav={showHideNav} ></Header>
 			<div onMouseLeave={showHideNav}><Navbar isVisible={isNavbarVisible} /></div>
-
 			<Routes>
 				<Route path="/" element={<Home />} />
 				<Route path="/day-shift" element={<DayShift />} />

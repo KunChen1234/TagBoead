@@ -23,23 +23,24 @@ function Section(prop: Prop) {
             sessionStorage.setItem("DepartmentInfo", JSON.stringify(msg));
         })
     });
+    // Comment
     const a = [{
-        color: "white", section: "maintanence",
+        Color: "white", Name: "maintanence",
     },
     {
-        color: "#0000ff", section: "manager"
+        Color: "#0000ff", Name: "manager"
     }, {
-        color: "#008000", section: "transfer"
+        Color: "#008000", Name: "transfer"
     }, {
-        color: "#800080", section: "section4"
+        Color: "#800080", Name: "section4"
     }, {
-        color: "#ffd700", section: "section5"
+        Color: "#ffd700", Name: "section5"
     }
     ]
-    if (Department) {
+    if (a) {
         return (
             <div>
-                {Array.from(Department).map(entry => {
+                {Array.from(a).map(entry => {
                     return (
                         <div className='pt-4'>
                             {/* border: `5px solid red`, */}
