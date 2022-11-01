@@ -45,7 +45,7 @@ function Personalinfo(props: Props) {
             return null;
         }
     });
-    const [detailVisible,setIsDetailVisible]=useState<boolean[]>([false])
+    const [detailVisible, setIsDetailVisible] = useState<boolean[]>([false])
     const [photoSrc, setphotoSrc] = useState<string>();
 
     useEffect(() => {
@@ -69,9 +69,6 @@ function Personalinfo(props: Props) {
             console.log("uodate Nigh shift")
             sessionStorage.setItem("NightShift", JSON.stringify(msg));
         });
-        socket.on("UpdateTime", (msg) => {
-
-        })
         return function socketCleanup() {
             socket.removeAllListeners("DayShift");
             socket.removeAllListeners("NightShift");
@@ -107,14 +104,20 @@ function Personalinfo(props: Props) {
                     //  }
                     const person = entry.person;
                     const lamp = entry.lamp;
-                    let isvisible=false;
-                    if (person.section === props.section) {
-                        return (<div key={person.ID} className="min-w-fit max-w-sm  bg-tag-back shadow-lg grid grid-flow-2 h-fit" onMouseEnter={() => { 
-                            isvisible=true;
-                       }} onMouseLeave={() => {  if(detailVisible)
-                        {
-                            isvisible=false;
-                        } }}>
+                    let isvisible = false;
+                    if (person.section === props.section && person.ID) {
+                        return (<div key={person.ID} className="min-w-fit max-w-sm  bg-tag-back shadow-lg grid grid-flow-2 h-fit" onMouseEnter={() => {
+                            if(person.ID)
+                            {
+                                if(document.getElementById(person.ID))
+                                {document.getElementById(person.ID!)!.style.visibility = "visible";
+                            }
+                        }
+                        }} onMouseLeave={(event) => {
+                            if (detailVisible) {
+                                isvisible = false;
+                            }
+                        }}>
                             <div className="clo-flow-1">
                                 <img className="inline-block h-20 w-20 rounded-full ring-2 ring-black" src={require("../../image/persontest.jpg")} alt={miner}></img>
                             </div>
@@ -122,7 +125,7 @@ function Personalinfo(props: Props) {
                                 <p>ID: {person.ID}</p>
                                 <p>Name: {person.name}</p>
                                 <p>Job: {person.job}</p>
-                                <div className={`${isvisible ? "visible" : "hidden"} `}>
+                                <div id={person.ID} className={`${isvisible ? "visible" : "hidden"} `}>
                                     <p>Section: {person.section}</p>
                                     <p>Time: {person.date}</p>
                                     <p>Lamp Information</p>
