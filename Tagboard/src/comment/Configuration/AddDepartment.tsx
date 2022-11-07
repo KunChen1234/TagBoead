@@ -1,34 +1,29 @@
 import React, { useState } from "react";
 import useSocket from "../../context/socket";
 import DepartmentInfo from "../hooks/DepartmentForm";
-interface Props {
-    isAddAreaVisible: boolean;
-    close: () => void;
-}
 function AddDepartment() {
     const socket = useSocket();
     const [selectedColour, setSelectedColour] = useState("#ff0000");
-    const [newAreaName, setNewAreaName] = useState<string>("");
-    function addNewArea(event: React.FormEvent<HTMLFormElement>) {
+    const [newDepartmentName, setNewDepartmentName] = useState<string>("");
+    function addNewDepartment(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
         // dispatch({ type: AreasActionKind.ADD, payload: { newAreaName: newAreaName, newAreaColour: selectedColour } });
-        console.log(`Adding Area ${newAreaName} With Colour ${selectedColour}`);
-        if (newAreaName && selectedColour) {
-            const newDepartment: DepartmentInfo = { Name: newAreaName, Color:selectedColour }
+        console.log(`Adding Area ${newDepartmentName} With Colour ${selectedColour}`);
+        if (newDepartmentName && selectedColour) {
+            const newDepartment: DepartmentInfo = { Name: newDepartmentName, Color: selectedColour }
             socket.emit("addNewDepartment", newDepartment);
         }
-
-        setNewAreaName("");
+        setNewDepartmentName("");
     }
-    return (<div>
-        <div >
-            <form onSubmit={addNewArea}>
+    return (
+        <div className=" text-center pt-3">
+            <form onSubmit={addNewDepartment}>
                 <div>
-                    <label>Area Name: </label>
-                    <input type={"text"} className="text-black" value={newAreaName} onChange={(change) => setNewAreaName(change.target.value)}></input>
+                    <label>Department Name: </label>
+                    <input type={"text"} className="text-black" value={newDepartmentName} onChange={(change) => setNewDepartmentName(change.target.value)}></input>
                 </div>
-                <div>
-                    <label>Area Colour: </label>
+                <div className="pt-2">
+                    <label>Department Colour: </label>
                     <select className="bg-roobuck-onyx" value={selectedColour} onChange={(event) => setSelectedColour(event.target.value)}>
                         <option label="Red" value="#c24242">Red</option>
                         <option label="Blue" value="#29bdc1">Blue</option>
@@ -41,9 +36,10 @@ function AddDepartment() {
                 </div>
                 <button className="bg-roobuck-blue rounded-lg pt-1 pb-1 pl-3 pr-3 m-1" type="submit">Save</button>
             </form>
+            <form>
+
+            </form>
         </div>
-    </div>
     )
 }
 export default AddDepartment;
-

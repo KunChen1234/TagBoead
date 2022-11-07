@@ -2,14 +2,14 @@ import { useEffect, useState } from 'react';
 import useSocket from '../../context/socket';
 import './section.css';
 import Personalinfo from '../Personalinfo/personnalinfo';
-import DepartmentInfo from '../hooks/DepartmentForm';
+import AreaInfo from '../hooks/AreaForm';
 interface Prop {
     shiftTime: string;
 }
 function Section(prop: Prop) {
     const socket = useSocket();
-    const [Department, setDepartment] = useState<DepartmentInfo[]>(() => {
-        const user = sessionStorage.getItem("DepartmentInfo");
+    const [Department, setDepartment] = useState<AreaInfo[]>(() => {
+        const user = sessionStorage.getItem("AreamentInfo");
         console.log(user);
         if (user) {
             return JSON.parse(user)
@@ -18,9 +18,9 @@ function Section(prop: Prop) {
         }
     });
     useEffect(() => {
-        socket.on("UpdateDepartmentInfo", (msg) => {
+        socket.on("UpdateAreaInfo", (msg) => {
             setDepartment(msg);
-            sessionStorage.setItem("DepartmentInfo", JSON.stringify(msg));
+            sessionStorage.setItem("AreaInfo", JSON.stringify(msg));
         })
     });
     // Comment
@@ -37,10 +37,10 @@ function Section(prop: Prop) {
         Color: "#ffd700", Name: "section5"
     }
     ]
-    if (a) {
+    if (Department) {
         return (
             <div>
-                {Array.from(a).map(entry => {
+                {Array.from(Department).map(entry => {
                     return (
                         <div className='pt-4'>
                             {/* border: `5px solid red`, */}

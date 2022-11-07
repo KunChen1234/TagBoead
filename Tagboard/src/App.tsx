@@ -23,7 +23,7 @@ function App(): JSX.Element {
 				<Route path="/" element={<Home />} />
 				<Route path="/day-shift" element={<DayShift />} />
 				<Route path="/night-shift" element={<NightShift />} />
-				<Route path="/configuration" element={<Configuration />} />
+				<Route path="/configuration/*" element={<Configuration />} />
 			</Routes>
 			<div className=' bg-roobuck-blue h-fit'>
 				<Footer version={packageJson.version}></Footer>

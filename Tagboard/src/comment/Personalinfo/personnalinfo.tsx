@@ -1,3 +1,4 @@
+import { Visibility } from '@mui/icons-material';
 import { DetailedHTMLFactory, useEffect, useState } from 'react';
 import useSocket from '../../context/socket';
 import miner from '../../image/miner.png';
@@ -107,15 +108,18 @@ function Personalinfo(props: Props) {
                     let isvisible = false;
                     if (person.section === props.section && person.ID) {
                         return (<div key={person.ID} className="min-w-fit max-w-sm  bg-tag-back shadow-lg grid grid-flow-2 h-fit" onMouseEnter={() => {
-                            if(person.ID)
-                            {
-                                if(document.getElementById(person.ID))
-                                {document.getElementById(person.ID!)!.style.visibility = "visible";
+                            if (person.ID) {
+                                if (document.getElementById(person.ID)) {
+                                    document.getElementById(person.ID!)!.style.display = "";
+                                    console.log(document.getElementById(person.ID)?.style.visibility);
+                                }
                             }
-                        }
-                        }} onMouseLeave={(event) => {
-                            if (detailVisible) {
-                                isvisible = false;
+                        }} onMouseLeave={() => {
+                            if (person.ID) {
+                                if (document.getElementById(person.ID)) {
+                                    document.getElementById(person.ID!)!.style.display = "none";
+                                    console.log(document.getElementById(person.ID)?.style.visibility);
+                                }
                             }
                         }}>
                             <div className="clo-flow-1">
@@ -125,7 +129,7 @@ function Personalinfo(props: Props) {
                                 <p>ID: {person.ID}</p>
                                 <p>Name: {person.name}</p>
                                 <p>Job: {person.job}</p>
-                                <div id={person.ID} className={`${isvisible ? "visible" : "hidden"} `}>
+                                <div id={person.ID} className="" style={{ display:'none' }}>
                                     <p>Section: {person.section}</p>
                                     <p>Time: {person.date}</p>
                                     <p>Lamp Information</p>
