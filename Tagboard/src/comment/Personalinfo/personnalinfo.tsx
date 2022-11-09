@@ -6,10 +6,16 @@ interface Props {
     section: string;
     shiftTime: string;
 }
+interface DepartmentInfo {
+    departmentName: string ;
+    departmentColor: string ;
+}
 interface PeopleInfoTag {
     ID: string | undefined | null;
     section: string | undefined | null;
-    name: string | undefined | null;
+    firstName: string | undefined | null;
+    lastName: string | undefined | null;
+    department: DepartmentInfo | undefined | null;
     photo: string | undefined | null;
     job: string | undefined | null;
     date: string | undefined | null;
@@ -107,42 +113,46 @@ function Personalinfo(props: Props) {
                     const lamp = entry.lamp;
                     let isvisible = false;
                     if (person.section === props.section && person.ID) {
-                        return (<div key={person.ID} className="min-w-fit max-w-sm  bg-tag-back shadow-lg grid grid-flow-2 h-fit" onMouseEnter={() => {
-                            if (person.ID) {
-                                if (document.getElementById(person.ID)) {
-                                    document.getElementById(person.ID!)!.style.display = "";
-                                    console.log(document.getElementById(person.ID)?.style.visibility);
+                        return (
+                            <div key={person.ID} className="box-border p-2 min-w-fit max-w-sm  bg-tag-back shadow-lg grid grid-flow-2 h-fit border-4" 
+                            style={{ borderColor: person.department?.departmentColor }}
+                            onMouseEnter={() => {
+                                if (person.ID) {
+                                    if (document.getElementById(person.ID)) {
+                                        document.getElementById(person.ID!)!.style.display = "";
+                                        console.log(document.getElementById(person.ID)?.style.visibility);
+                                    }
                                 }
-                            }
-                        }} onMouseLeave={() => {
-                            if (person.ID) {
-                                if (document.getElementById(person.ID)) {
-                                    document.getElementById(person.ID!)!.style.display = "none";
-                                    console.log(document.getElementById(person.ID)?.style.visibility);
+                            }} onMouseLeave={() => {
+                                if (person.ID) {
+                                    if (document.getElementById(person.ID)) {
+                                        document.getElementById(person.ID!)!.style.display = "none";
+                                        console.log(document.getElementById(person.ID)?.style.visibility);
+                                    }
                                 }
-                            }
-                        }}>
-                            <div className="clo-flow-1">
-                                <img className="inline-block h-20 w-20 rounded-full ring-2 ring-black" src={require("../../image/persontest.jpg")} alt={miner}></img>
-                            </div>
-                            <div className="clo-flow-1">
-                                <p>ID: {person.ID}</p>
-                                <p>Name: {person.name}</p>
-                                <p>Job: {person.job}</p>
-                                <div id={person.ID} className="" style={{ display:'none' }}>
-                                    <p>Section: {person.section}</p>
-                                    <p>Time: {person.date}</p>
-                                    <p>Lamp Information</p>
-                                    <p>LampSN: {lamp.SN}</p>
-                                    <p>LampMAC: {lamp.MAC}</p>
-                                    <p>LampBssid: {lamp.Bssid}</p>
-                                    <p>Update time:</p>
-                                    <p>{lamp.updateTime}</p>
-                                    <p>ChargingStatus: {lamp.ChargingStatus?.toString()}</p>
+                            }}>
+                                <div className="clo-flow-1">
+                                    <img className="inline-block h-20 w-20 rounded-full ring-2 ring-black" src={require("../../image/persontest.jpg")} alt={miner}></img>
                                 </div>
+                                <div className="clo-flow-1">
+                                    <p>ID: {person.ID}</p>
+                                    <p>LastName: {person.lastName}</p>
+                                    <p>FirstName: {person.firstName}</p>
+                                    <p>Job: {person.job}</p>
+                                    <div id={person.ID} className="" style={{ display: 'none' }}>
+                                        <p>Section: {person.section}</p>
+                                        <p>Time: {person.date}</p>
+                                        <p>Lamp Information</p>
+                                        <p>LampSN: {lamp.SN}</p>
+                                        <p>LampMAC: {lamp.MAC}</p>
+                                        <p>LampBssid: {lamp.Bssid}</p>
+                                        <p>Update time:</p>
+                                        <p>{lamp.updateTime}</p>
+                                        <p>ChargingStatus: {lamp.ChargingStatus?.toString()}</p>
+                                    </div>
 
-                            </div>
-                        </div>)
+                                </div>
+                            </div>)
                     }
                 })}
             </div >

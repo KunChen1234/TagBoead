@@ -14,7 +14,7 @@ function AddArea() {
         // dispatch({ type: AreasActionKind.ADD, payload: { newAreaName: newAreaName, newAreaColour: selectedColour } });
         console.log(`Adding Area ${newAreaName} With Colour ${selectedColour}`);
         if (newAreaName && selectedColour) {
-            const newArea: AreaForm = { Name: newAreaName, Color: selectedColour }
+            const newArea: AreaForm = { areaName: newAreaName, areaColor: selectedColour }
             socket.emit("addNewArea", newArea);
         }
         setNewAreaName("");

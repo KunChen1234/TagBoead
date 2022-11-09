@@ -8,20 +8,23 @@ interface Prop {
 }
 function Section(prop: Prop) {
     const socket = useSocket();
-    const [Department, setDepartment] = useState<AreaInfo[]>(() => {
-        const user = sessionStorage.getItem("AreamentInfo");
-        console.log(user);
-        if (user) {
-            return JSON.parse(user)
+    socket.emit("getAllArea");
+    const [Area, setArea] = useState<AreaInfo[]>(() => {
+        const areaInfo = sessionStorage.getItem("AreaInfo");
+        if (areaInfo) {
+            return JSON.parse(areaInfo)
         } else {
             return null;
-        }
-    });
+        }});
     useEffect(() => {
         socket.on("UpdateAreaInfo", (msg) => {
-            setDepartment(msg);
+            console.log(msg);
+            setArea(msg);
             sessionStorage.setItem("AreaInfo", JSON.stringify(msg));
         })
+        return function socketCleanup() {
+            socket.removeAllListeners("UpdateAreaInfo");
+        };
     });
     // Comment
     const a = [{
@@ -37,17 +40,17 @@ function Section(prop: Prop) {
         Color: "#ffd700", Name: "section5"
     }
     ]
-    if (Department) {
+    if (Area) {
         return (
             <div>
-                {Array.from(Department).map(entry => {
+                {Array.from(Area).map(entry => {
                     return (
                         <div className='pt-4'>
                             {/* border: `5px solid red`, */}
-                            <div key={entry.Name} className="board clo-flow-1 min-h-[200px] shadow-lg p-2" style={{ background: entry.Color }}>
-                                <p className='flex bg-white w-fit'>{entry.Name}</p>
+                            <div key={entry.areaName} className="board clo-flow-1 min-h-[200px] shadow-lg p-2" style={{ background: entry.areaColor }}>
+                                <p className='flex bg-white w-fit'>{entry.areaName}</p>
                                 <div className='pt-2'>
-                                    <Personalinfo section={entry.Name} shiftTime={prop.shiftTime}></Personalinfo>
+                                    <Personalinfo section={entry.areaName} shiftTime={prop.shiftTime}></Personalinfo>
                                 </div>
                             </div>
                         </div>

@@ -6,7 +6,7 @@ function ConfigurationMenu() {
 			<ul className="text-left">
 				{MenuData.map((MenuData, index) => {
 					return (
-						<Link to={MenuData.path}>
+						<Link key={index} to={MenuData.path}>
 							<li key={index} className="hover:bg-roobuck-blue p-2">
 								<span>{MenuData.title}</span>
 							</li>

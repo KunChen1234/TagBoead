@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import useSocket from "../../context/socket";
 import DepartmentInfo from "../hooks/DepartmentForm";
+import DepartmentDemo from "./DepartmentDemo";
 function AddDepartment() {
     const socket = useSocket();
     const [selectedColour, setSelectedColour] = useState("#ff0000");
@@ -10,7 +11,7 @@ function AddDepartment() {
         // dispatch({ type: AreasActionKind.ADD, payload: { newAreaName: newAreaName, newAreaColour: selectedColour } });
         console.log(`Adding Area ${newDepartmentName} With Colour ${selectedColour}`);
         if (newDepartmentName && selectedColour) {
-            const newDepartment: DepartmentInfo = { Name: newDepartmentName, Color: selectedColour }
+            const newDepartment: DepartmentInfo = { departmentName: newDepartmentName, departmentColor: selectedColour }
             socket.emit("addNewDepartment", newDepartment);
         }
         setNewDepartmentName("");
@@ -36,9 +37,7 @@ function AddDepartment() {
                 </div>
                 <button className="bg-roobuck-blue rounded-lg pt-1 pb-1 pl-3 pr-3 m-1" type="submit">Save</button>
             </form>
-            <form>
-
-            </form>
+            <DepartmentDemo></DepartmentDemo>
         </div>
     )
 }

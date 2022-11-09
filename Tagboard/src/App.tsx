@@ -9,6 +9,7 @@ import DayShift from "./comment/Dayshift/DayShift";
 import NightShift from "./comment/Nightshift/NightShift";
 import packageJson from "../package.json";
 import Configuration from "./comment/Configuration/Configuration";
+import useSocket from "./context/socket";
 
 function App(): JSX.Element {
 	const [isNavbarVisible, setIsNavbarVisible] = useState(false);

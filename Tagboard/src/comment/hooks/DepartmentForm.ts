@@ -1,5 +1,5 @@
 interface DepartmentInfo {
-    Name: string;
-    Color: string;
+    departmentName: string;
+    departmentColor: string;
 }
 export default DepartmentInfo;
